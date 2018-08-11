@@ -1,0 +1,21 @@
+#!/usr/bin/env php
+
+<?php
+
+require_once dirname(__DIR__) . '/vendor/autoload.php';
+
+use Symfony\Component\Console\Application;
+use PremiumPluginPackagist\Command\BuildCommand;
+use Dotenv\Dotenv;
+
+var_dump(getcwd());
+$dotenv = new Dotenv(getcwd());
+$dotenv->load();
+
+$app = new Application();
+
+$app->setCatchExceptions(false);
+
+$app->add(new BuildCommand());
+
+$app->run();

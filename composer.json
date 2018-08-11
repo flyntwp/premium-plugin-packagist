@@ -1,0 +1,27 @@
+{
+    "name": "flyntwp/premium-plugin-packagist",
+    "description": "Premium Plugin Packagist helps you to create a packagist / satis server to provide plugins retrieved with the Premium Plugin Downloader.",
+    "type": "library",
+    "license": "MIT",
+    "bin": ["bin/premium-plugin-packagist"],
+    "minimum-stability": "dev",
+    "prefer-stable" : true,
+    "require": {
+        "flyntwp/premium-plugin-downloader": "@dev",
+        "composer/satis": "dev-master",
+        "symfony/console": "^3.3",
+        "guzzlehttp/promises": "^1.3",
+        "webmozart/path-util": "^2.3",
+        "nabil1337/case-helper": "^0.1.0",
+        "vlucas/phpdotenv": "^2.4"
+    },
+    "repositories": [
+        {
+            "type": "path",
+            "url": "/Users/dom/dev/php/premium-plugin-downloader"
+        }
+    ],
+    "autoload": {
+        "psr-4": {"PremiumPluginPackagist\\": "src/"}
+    }
+}
