@@ -19,27 +19,36 @@ class SatisJsonBuilder
     public function run()
     {
         $this->config['repositories'] = [];
-        $vendors = scandir($this->packagesPath);
+        $this->addVendors($this->packagesPath);
+        $satisJson = json_encode($this->config, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
+        file_put_contents(Path::join(getcwd(), 'satis.json'), $satisJson);
+    }
+
+    protected function addVendors($packagesPath)
+    {
+        $vendors = scandir($packagesPath);
         foreach ($vendors as $vendor) {
             if (in_array($vendor, ['..', '.'])) {
                 continue;
             }
-            $vendorPath = Path::join($this->packagesPath, $vendor);
-            $packages = scandir($vendorPath);
-            foreach ($packages as $package) {
-                if (in_array($package, ['..', '.'])) {
-                    continue;
-                }
-                list($plugin, $version) = $this->extractPackageAndVersion($package);
-                if (!empty($plugin) && !empty($version)) {
-                    $extension = Path::getExtension($package);
-                    $this->addToConfig($vendor, $plugin, $version, $extension);
-                }
+            $vendorPath = Path::join($packagesPath, $vendor);
+            $this->addVendorPackages($vendor, $vendorPath);
+        }
+    }
+
+    protected function addVendorPackages($vendor, $vendorPath)
+    {
+        $packages = scandir($vendorPath);
+        foreach ($packages as $package) {
+            if (in_array($package, ['..', '.'])) {
+                continue;
+            }
+            list($plugin, $version) = $this->extractPackageAndVersion($package);
+            if (!empty($plugin) && !empty($version)) {
+                $extension = Path::getExtension($package);
+                $this->addToConfig($vendor, $plugin, $version, $extension);
             }
         }
-
-        $satisJson = json_encode($this->config, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
-        file_put_contents(Path::join(getcwd(), 'satis.json'), $satisJson);
     }
 
     protected function extractPackageAndVersion($filename)
