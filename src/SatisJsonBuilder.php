@@ -1,16 +1,13 @@
 <?php
 
-namespace PremiumPluginPackagist;
+namespace FlyntWP\PremiumPluginPackagist;
 
 use CaseHelper\CaseHelperFactory;
 use Webmozart\PathUtil\Path;
 
 class SatisJsonBuilder
 {
-    protected $packageName;
     protected $packagesPath;
-    protected $author;
-    protected $plugin;
     protected $recipe;
 
     function __construct($config, $packagesPath)
@@ -22,18 +19,17 @@ class SatisJsonBuilder
     public function run()
     {
         $this->config['repositories'] = [];
-        $authors = scandir($this->packagesPath);
-        foreach ($authors as $author) {
-            if (in_array($author, ['..', '.'])) continue;
-            $authorPath = Path::join($this->packagesPath, $author);
-            $packages = scandir($authorPath);
-            var_dump($packages);
+        $vendors = scandir($this->packagesPath);
+        foreach ($vendors as $vendor) {
+            if (in_array($vendor, ['..', '.'])) continue;
+            $vendorPath = Path::join($this->packagesPath, $vendor);
+            $packages = scandir($vendorPath);
             foreach ($packages as $package) {
                 if (in_array($package, ['..', '.'])) continue;
                 list($plugin, $version) = $this->extractPackageAndVersion($package);
                 if (!empty($plugin) && !empty($version)) {
                     $extension = Path::getExtension($package);
-                    $this->addToConfig($author, $plugin, $version, $extension);
+                    $this->addToConfig($vendor, $plugin, $version, $extension);
                 }
             }
         }
@@ -54,18 +50,18 @@ class SatisJsonBuilder
         }
     }
 
-    protected function addToConfig($author, $plugin, $version, $extension)
+    protected function addToConfig($vendor, $plugin, $version, $extension)
     {
         $packagesPath = $this->packagesPath;
         $this->config['repositories'][] = [
             'type' => 'package',
             'package' => [
-                'name' => "$author/$plugin",
+                'name' => "$vendor/$plugin",
                 'version' => "$version",
                 'type' => 'wordpress-plugin',
                 'dist' => [
                     'type' => 'zip',
-                    'url' => "$packagesPath/$author/$plugin.$version.$extension"
+                    'url' => "$packagesPath/$vendor/$plugin.$version.$extension"
                 ],
                 'require' => [
                     'composer/installers' => '^1.0'

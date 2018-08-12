@@ -1,6 +1,6 @@
 <?php
 
-namespace PremiumPluginPackagist;
+namespace FlyntWP\PremiumPluginPackagist;
 
 use CaseHelper\CaseHelperFactory;
 use Webmozart\PathUtil\Path;
@@ -22,7 +22,7 @@ class VersionChecker
         $caseHelper = CaseHelperFactory::make(CaseHelperFactory::INPUT_TYPE_KEBAB_CASE);
         $author = $caseHelper->toPascalCase($this->author);
         $plugin = $caseHelper->toPascalCase($this->plugin);
-        $recipeClass = "\\PremiumPluginDownloader\\Recipes\\$author\\$plugin";
+        $recipeClass = "\\FlyntWP\\PremiumPluginDownloader\\Recipes\\$author\\$plugin";
         $this->recipe = new $recipeClass();
     }
 
@@ -38,7 +38,10 @@ class VersionChecker
 
     public function downloadPackage($version)
     {
-        mkdir($this->getPackagePath(), 0755, true);
+        $packagePath = $this->getPackagePath();
+        if (!file_exists($packagePath)) {
+            mkdir($packagePath, 0755, true);
+        }
         return $this->recipe->download($version, $this->getPathForVersion($version));
     }
 
