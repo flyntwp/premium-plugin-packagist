@@ -13,7 +13,7 @@ class VersionChecker
     protected $plugin;
     protected $recipe;
 
-    function __construct($packageName, $packagesPath)
+    public function __construct($packageName, $packagesPath)
     {
         $this->packageName = $packageName;
         $this->packagesPath = $packagesPath;
@@ -61,7 +61,8 @@ class VersionChecker
         );
     }
 
-    protected function getFilenameForVersion($version) {
+    protected function getFilenameForVersion($version)
+    {
         return $this->plugin . '.' . $version . $this->recipe->getFileExtension();
     }
 }

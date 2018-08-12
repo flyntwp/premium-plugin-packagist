@@ -71,9 +71,9 @@ class BuildCommand extends Command
         if ($latestVersionExists) {
             $output->writeln("${packageName}: Already exists locally.");
         } else {
-          $output->writeln("${packageName}: Starting download.");
-          $versionChecker->downloadPackage($version);
-          $output->writeln("${packageName}: Download complete.");
+            $output->writeln("${packageName}: Starting download.");
+            $versionChecker->downloadPackage($version);
+            $output->writeln("${packageName}: Download complete.");
         }
     }
 }

@@ -10,7 +10,7 @@ class SatisJsonBuilder
     protected $packagesPath;
     protected $recipe;
 
-    function __construct($config, $packagesPath)
+    public function __construct($config, $packagesPath)
     {
         $this->config = $config;
         $this->packagesPath = $packagesPath;
@@ -21,11 +21,15 @@ class SatisJsonBuilder
         $this->config['repositories'] = [];
         $vendors = scandir($this->packagesPath);
         foreach ($vendors as $vendor) {
-            if (in_array($vendor, ['..', '.'])) continue;
+            if (in_array($vendor, ['..', '.'])) {
+                continue;
+            }
             $vendorPath = Path::join($this->packagesPath, $vendor);
             $packages = scandir($vendorPath);
             foreach ($packages as $package) {
-                if (in_array($package, ['..', '.'])) continue;
+                if (in_array($package, ['..', '.'])) {
+                    continue;
+                }
                 list($plugin, $version) = $this->extractPackageAndVersion($package);
                 if (!empty($plugin) && !empty($version)) {
                     $extension = Path::getExtension($package);
