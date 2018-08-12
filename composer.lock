@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d61d589a4a86f15cf2d803750dee7e31",
+    "content-hash": "fef647ab908785e222afc70713615ebf",
     "packages": [
         {
             "name": "composer/ca-bundle",
@@ -379,11 +379,10 @@
         {
             "name": "flyntwp/premium-plugin-downloader",
             "version": "dev-master",
-            "dist": {
-                "type": "path",
-                "url": "/Users/dom/dev/php/premium-plugin-downloader",
-                "reference": "fec2dc5e5c399c80430bf5701f6c35e0abb877db",
-                "shasum": null
+            "source": {
+                "type": "git",
+                "url": "https://github.com/flyntwp/premium-plugin-downloader.git",
+                "reference": "fec2dc5e5c399c80430bf5701f6c35e0abb877db"
             },
             "require": {
                 "guzzlehttp/guzzle": "^6.2",
@@ -406,7 +405,8 @@
             "license": [
                 "MIT"
             ],
-            "description": "The Premium Plugin downloader helps you to automatically download premium plugins such as paid WordPress plugins from a remote, possibly password protected server."
+            "description": "The Premium Plugin downloader helps you to automatically download premium plugins such as paid WordPress plugins from a remote, possibly password protected server.",
+            "time": "2018-08-11T13:27:19+00:00"
         },
         {
             "name": "guzzlehttp/guzzle",
