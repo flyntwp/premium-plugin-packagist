@@ -8,7 +8,7 @@ use Webmozart\PathUtil\Path;
 class SatisJsonBuilder
 {
     protected $packagesPath;
-    protected $recipe;
+    protected $config;
 
     public function __construct($config, $packagesPath)
     {
