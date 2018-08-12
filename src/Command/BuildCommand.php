@@ -56,7 +56,7 @@ class BuildCommand extends Command
         $satisPath = Path::makeAbsolute('vendor/bin/satis', getcwd());
         $satisFile = Path::join(getcwd(), 'satis.json');
         $satisOutputDir = Path::makeAbsolute('web', getcwd());
-        $a = $helper->run($output, "$satisPath build $satisFile $satisOutputDir");
+        $helper->run($output, "$satisPath build $satisFile $satisOutputDir");
     }
 
     protected function checkAndDownloadPackage($packageName, $packagesPath, $output, $version = null)
