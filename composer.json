@@ -15,6 +15,9 @@
         "vlucas/phpdotenv": "^2.4",
         "flyntwp/premium-plugin-downloader": "@dev"
     },
+    "require-dev": {
+        "squizlabs/php_codesniffer": "^2.9.1 || ^3.3.1"
+    },
     "repositories": [
         {
             "type": "path",
